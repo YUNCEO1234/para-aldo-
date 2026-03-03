@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Para Aldo — Con amor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --blue:#86b6f2;
+  --pink:#f6a5b7;
+  --lilac:#cbb3f7;
+  --mint:#b8f2e6;
+  --text:#223043;
+  --muted:#5f6e82;
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#f7faff,#eef6ff,#ffffff);
+  min-height:100vh;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(32px,4vw,52px);
+  background:linear-gradient(90deg,#86b6f2,#f6a5b7,#cbb3f7);
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+  margin:0;
+}
+
+.subtitle{
+  color:var(--muted);
+  margin-top:8px;
+}
+
+.gallery{
+  margin-top:40px;
+  display:grid;
+  gap:30px;
+}
+
+/* ===============================
+   TARJETA BASE
+================================= */
+
+.card{
+  position:relative;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
+  transition:.4s ease;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 30px 70px rgba(0,0,0,.2);
+}
+
+.card img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+/* ===============================
+   TARJETA FE (más protagonista)
+================================= */
+
+.tag{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.65));
+  color:white;
+  padding:20px;
+  gap:15px;
+}
+
+.tag .label{
+  font-size:30px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.tag .hint{
+  font-size:15px;
+  padding:12px 22px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--pink),var(--blue));
+  font-weight:500;
+  box-shadow:0 0 20px rgba(255,255,255,.5);
+  animation:glow 2.5s infinite;
+}
+
+@keyframes glow{
+  0%{box-shadow:0 0 10px rgba(255,255,255,.2);}
+  50%{box-shadow:0 0 25px rgba(255,255,255,.8);}
+  100%{box-shadow:0 0 10px rgba(255,255,255,.2);}
+}
+
+/* ===============================
+   TARJETA ESPECIAL
+================================= */
+
+.card.special{
+  background:linear-gradient(135deg,var(--blue),var(--pink),var(--lilac));
+  background-size:300% 300%;
+  animation:gradientMove 8s ease infinite;
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.special-cta{
+  padding:30px;
+}
+
+.special-cta h3{
+  font-size:clamp(26px,3vw,36px);
+  margin:0;
+  text-shadow:0 5px 25px rgba(0,0,0,.3);
+}
+
+.cta-badge{
+  margin-bottom:15px;
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.25);
+  border:1px solid rgba(255,255,255,.5);
+  backdrop-filter:blur(6px);
+}
+
+/* ===============================
+   MODAL
+================================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:.3s ease;
+}
+
+.modal.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-dialog{
+  background:white;
+  border-radius:var(--radius);
+  width:min(800px,90%);
+  padding:30px;
+  box-shadow:0 30px 70px rgba(0,0,0,.25);
+  animation:fadeIn .4s ease;
+}
+
+@keyframes fadeIn{
+  from{transform:translateY(20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+.modal-body p{
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.modal-close{
+  position:absolute;
+  top:15px;
+  right:20px;
+  font-size:28px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 class="title">Aldo, esto es para ti</h1>
+  <p class="subtitle">Un rincón sincero de mi corazón.</p>
+
+  <section class="gallery">
+
+    <div class="card" id="faith-card">
+      <img src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=1200&auto=format&fit=crop">
+      <div class="tag">
+        <span class="label">Fe que guía</span>
+        <span class="hint">💌Dios puso esto en mi corazón para ti.</span>
+      </div>
+    </div>
+
+    <div class="card special" id="special-card">
+      <div class="special-cta">
+        <div class="cta-badge">Especial</div>
+        <h3>Ábrelo si quieres saber cuánto te amo</h3>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-dialog">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const modal=document.getElementById("modal");
+const body=document.getElementById("modal-body");
+
+document.getElementById("faith-card").onclick=()=>{
+body.innerHTML=`
+<h4>Fe que guía</h4>
+<p><strong>1 Corintios 13:4–7</strong></p>
+<p>El amor es paciente, es bondadoso. El amor no es envidioso ni jactancioso, no se enaltece; no hace nada indebido, no busca lo suyo, no se irrita, no guarda rencor. No se alegra de la injusticia, sino que se alegra con la verdad. Todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.</p>`;
+modal.classList.add("open");
+}
+
+document.getElementById("special-card").onclick=()=>{
+body.innerHTML=`
+<h4>💙 “Ábrelo si quieres saber cuánto te amo”</h4>
+<p>Aldo,</p>
+<p>Si estás leyendo esto, es porque quiero que conozcas una parte muy sincera de mi corazón.</p>
+<p>Lo que siento por ti no nació solo de momentos bonitos, nació de admiración. Admiración por tu forma de pensar, por tus valores y, sobre todo, por la manera en que pones a Dios en el centro de tu vida.</p>
+<p>Me enamora tu fe.<br>
+Me enamora que quieras hacer las cosas bien.<br>
+Me enamora que tengas principios firmes en un mundo donde muchos no los tienen.</p>
+<p>Tu relación con Dios dice mucho de ti. Dice que eres un hombre que busca crecer, que quiere amar con intención, que entiende que el amor no es solo emoción, sino compromiso, respeto y propósito.</p>
+<p>A tu lado me siento tranquila. Me siento cuidada. Me siento segura. No porque prometas cosas grandes, sino porque en lo pequeño demuestras quién eres.</p>
+<p>Te amo por tu corazón.<br>
+Te amo por tu carácter.<br>
+Te amo por la forma en que eliges vivir.</p>
+<p>Y si algún día dudas cuánto te amo, recuerda esto: lo que siento por ti no es superficial ni momentáneo. Es un amor que nace del respeto, de la admiración y del deseo sincero de caminar juntos con Dios guiando nuestros pasos.</p>
+<p>Eso es lo que más valoro de ti.<br>
+Eso es lo que más me hace elegirte.</p>
+<p>Te amo, mi precioso.</p>`;
+modal.classList.add("open");
+}
+
+function closeModal(){
+modal.classList.remove("open");
+}
+</script>
+
+</body>
+</html>
